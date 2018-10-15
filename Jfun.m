@@ -5,10 +5,10 @@ function Jv=Jfun(x,c0,d0)
 
   L=length(c0);
   
-  Jv=zeros(L,3);
+  Jv=zeros(L,4);
 
   
   for II=1:L
-    Jv(II,1)=dfx1(x,c0(II),d0(II));  Jv(II,2)=dfx2(x,c0(II),d0(II));  Jv(II,3)=dfx3(x,c0(II),d0(II));
+    Jv(II,1)=dfx1(x,c0(II),d0(II));  Jv(II,2)=dfx2(x,c0(II),d0(II));  Jv(II,3)=dfx3(x,c0(II),d0(II)); Jv(II,4)=dfx4(x,c0(II),d0(II));
   end
 endfunction
