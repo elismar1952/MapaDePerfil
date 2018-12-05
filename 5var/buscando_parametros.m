@@ -2,7 +2,7 @@
 clc
 MINIMO_ERROR = 0.1;
 
-addpath(genpath(mcode))
+addpath(genpath('mcode'))
 
 format long
 page_screen_output(0);
@@ -16,7 +16,7 @@ C =[4.5    ;   2 ;   6.5;   12.3];
 h0=246.1523; D=23; Q= 1.3123; f=15; g=109;
 X0=[h0;D;Q;f;g];
 
-[X F]=newtonsys (C,X0,MINIMO_ERROR,c0,d0,alfa)
+[X F]=newtonsys (C,X0,MINIMO_ERROR,c0,d0,alfa);
  
 h0=X(1)
 D=X(2)
@@ -25,4 +25,5 @@ f=X(4)
 g=X(5)
 
 
-C=Ffun([h0;D;Q;f,g],c0,d0)
+%C=Ffun([h0;D;Q;f,g],c0,d0)
+%[B C]=Tfun([h0;D;Q;f,g],b0,c0,d0)
