@@ -31,7 +31,9 @@ classdef Cumulus  < handle
             % obtengo las demas lineas
             for II=2:NCOL
                 obj.get_global_cumulus_map(II,obj.IMG_BIN(:,II));
+                fprintf(stdout,'Analizing column %d de %d\r',II,NCOL);
             endfor
+            fprintf(stdout,'Analizing column %d de %d\r',NCOL,NCOL);
 
             % Creo MAP
             MAP=obj.GMAP;

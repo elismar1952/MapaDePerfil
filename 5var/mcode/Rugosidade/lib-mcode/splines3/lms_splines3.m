@@ -56,10 +56,10 @@ function [P XINT]=lms_splines3(X,Y,NPARTS,varargin)
         ITER=ITER+1;
     end
 
-    figure;
-    plot(EE,'-o');
-    xlabel('Iterations');
-    ylabel('Error');
+    %figure;
+    %plot(EE,'-o');
+    %xlabel('Iterations');
+    %ylabel('Error');
 
     disp(['SOLVED LMS CUBIC SPLINES, ITERATIONS: '  num2str(ITER)]);
 
