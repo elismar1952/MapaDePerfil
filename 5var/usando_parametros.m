@@ -1,8 +1,10 @@
 %%
 clc
+close all
 addpath(genpath('mcode'))
 page_screen_output(0);
 page_output_immediately(1);
+OUTPUT='output';
 
 IMAGEPATH='/home/fernando/MapaDePerfil/povray/line-laser/output/8bit/main1.bmp';
 IMG = imread(IMAGEPATH);
@@ -21,8 +23,10 @@ g=1.8;
 
 PARAMS=[h0;D;Q;f;g];
 
-[B C]=image1linefun(PARAMS,IMG_BIN,IMG_BIN_REF);
+[B C]=image1linefun(PARAMS,IMG_BIN,IMG_BIN_REF,false,OUTPUT);
 
+mkdir(OUTPUT);
 figure
 plot(B,C,'-o');
-print(gcf,'grafico-real.png','-dpng')
+grid minor on
+print(gcf,fullfile(OUTPUT,filesep,'grafico-real.png'),'-dpng');

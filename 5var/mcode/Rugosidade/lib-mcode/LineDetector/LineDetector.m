@@ -3,13 +3,15 @@ classdef LineDetector  < handle
     properties
         IMG_BIN
 
+        CUMULUSON
         ORDER
         PARTS
+        LEVEL
     end
 
 
     methods (Access = public)
-        %% PUBLIC
+        %%%%%%%%%%%%%%%%%%%%%% CONSTRUCTOR %%%%%%%%%%%%%%%%%%%%%%%%%
         %% Constructor carrega IMG e cria IMG_BIN desde IMG
         function obj = LineDetector(IMG_BIN)
 
@@ -20,38 +22,19 @@ classdef LineDetector  < handle
             %obj.IMG_BIN=(obj.IMG_BIN>0.75);
 
             %% Spline reconstruccin
+            obj.CUMULUSON=true;
+
+            %% Spline reconstruccin
             obj.ORDER=5;
             obj.PARTS=8;
+            obj.LEVEL=1;
 
         end
-
-
-        %% Establee el rden del polinmio usado no spline
-        function set_reconstruction_spline_order(obj,ORDER)
-            obj.ORDER=ORDER;
-        end
-
-        %% Establee el numero de partes a analizar
-        function set_reconstruction_parts(obj,PARTS)
-            obj.PARTS=PARTS;
-        end
-
-
-        %% retorna el rden del polinmio usado no spline
-        function ORDER=get_reconstruction_spline_order(obj)
-            ORDER=obj.ORDER;
-        end
-
-        %% retorna el numero de partes a analizar
-        function PARTS=get_reconstruction_parts(obj)
-            PARTS=obj.PARTS;
-        end
-
 
         %% Calcula la curva provocada por el objeto
         function [XOPT YOPT]=calculates_curve(obj)
             
-            [XOPT YOPT]=curve_lms_poly_spline(obj.IMG_BIN,obj.ORDER,obj.PARTS);
+            [XOPT YOPT]=curve_lms_poly_spline(obj.IMG_BIN,obj.ORDER,obj.PARTS,obj.CUMULUSON,obj.LEVEL);
 
         end
 
@@ -93,6 +76,55 @@ classdef LineDetector  < handle
             XREF=X;
             YREF=polyval (K',XREF);           
         end
+
+        %%%%%%%%%%%%%%%%%%%%%% SET %%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Establee 
+        function set_reconstruction_cumulus_on(obj,CUMULUSON)
+            obj.CUMULUSON=CUMULUSON;
+        end
+
+        %%%%%%%%%%%%%%%%%%%%%% SET %%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Establee 
+        function set_reconstruction_level(obj,LEVEL)
+            obj.LEVEL=LEVEL;
+        end
+
+        %%%%%%%%%%%%%%%%%%%%%% SET %%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Establee el rden del polinmio usado no spline
+        function set_reconstruction_spline_order(obj,ORDER)
+            obj.ORDER=ORDER;
+        end
+
+        %%%%%%%%%%%%%%%%%%%%%% SET %%%%%%%%%%%%%%%%%%%%%%%%%
+        %% Establee el numero de partes a analizar
+        function set_reconstruction_parts(obj,PARTS)
+            obj.PARTS=PARTS;
+        end
+
+        %%%%%%%%%%%%%%%%%%%%%% GET %%%%%%%%%%%%%%%%%%%%%%%%%
+        %% retorna el 
+        function CUMULUSON=get_reconstruction_cumulus_on(obj)
+            CUMULUSON=obj.CUMULUSON;
+        end
+
+        %%%%%%%%%%%%%%%%%%%%%% GET %%%%%%%%%%%%%%%%%%%%%%%%%
+        %% retorna el 
+        function LEVEL=get_reconstruction_level(obj)
+            LEVEL=obj.LEVEL;
+        end
+
+        %%%%%%%%%%%%%%%%%%%%%% GET %%%%%%%%%%%%%%%%%%%%%%%%%
+        %% retorna el rden del polinmio usado no spline
+        function ORDER=get_reconstruction_spline_order(obj)
+            ORDER=obj.ORDER;
+        end
+
+        %%%%%%%%%%%%%%%%%%%%%% GET %%%%%%%%%%%%%%%%%%%%%%%%%
+        %% retorna el numero de partes a analizar
+        function PARTS=get_reconstruction_parts(obj)
+            PARTS=obj.PARTS;
+        end
+
 
     end
 

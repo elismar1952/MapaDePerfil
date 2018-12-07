@@ -1,36 +1,46 @@
 function [P XINT]=lms_splines3(X,Y,NPARTS,varargin)
 
 
-    % Retorna la pendiente al inicio e final
-    [X Y W]=check_parameters(X,Y,NPARTS,varargin{:});
+    % Lee y ordena parametros de entrada
+    % W es el peso de (X,Y)
+    % LEVEL es si se usara continuidade de 0, 1 o 2 derivada
+    [X Y W LEVEL]=check_parameters(X,Y,NPARTS,varargin{:});
 
-
+    % Agrupa en intervalos XINT
     % Retorna Xs datos X por grupos, son NPARTS grupos    
     % Retorna Ys datos Y por grupos, son NPARTS grupos
     % Retorna XINT intervalos de X, son NPARTS grupos
     [Xs Ys XINT Ws]=generate_Xs_Ys_XINT(X,Y,NPARTS,W);
 
     
+    %% Equacion de todos os pontos
     %Yz=Az*p
     [Yz Az Cz]=generate_values_z(Xs,Ys,Ws);
 
-
+    %% Equacion de continuidad de polinomios (LEVEL 0)
     % 0=A0*p
     [Y0 A0 C0]=generate_values_0(Xs,Ys,Ws,XINT);
 
-
+    %% Equacion de continuidad de polinomios en la primera derivada (LEVEL 1)
     % 0=A1*p
     [Y1 A1 C1]=generate_values_1(Xs,Ys,Ws,XINT);
 
-
+    %% Equacion de continuidad de polinomios en la segunda derivada (LEVEL 2)
     % 0=A2*p
     [Y2 A2 C2]=generate_values_2(Xs,Ys,Ws,XINT);
 
     %%%%%%%%%%%%%%%%%
     At=[Az;A0;A1;A2];
     Yt=[Yz;Y0;Y1;Y2];
-    C=diag([Cz;C0;C1;C2]);
-
+    if     (LEVEL==2)
+        C=diag([Cz;C0;C1;C2]);
+    elseif (LEVEL==1)
+        C=diag([Cz;C0;C1;0*C2]);
+    elseif (LEVEL==0)
+        C=diag([Cz;C0;0*C1;0*C2]);
+    else
+        C=diag([Cz;C0;C1;C2]);
+    end
 
     p=inv(At'*C*At)*At'*C*Yt;
     EE=sqrt(meansq(Yt-At*p));
@@ -215,7 +225,7 @@ function [Xs Ys XINT Ws]=generate_Xs_Ys_XINT(X,Y,NPARTS,W)
     endfor
 endfunction
 
-function [X Y W]=check_parameters(X,Y,NPARTS,varargin)
+function [X Y W LEVEL]=check_parameters(X,Y,NPARTS,varargin)
 
     if(~isvector(X))
         error('X should be a vector');
@@ -246,6 +256,16 @@ function [X Y W]=check_parameters(X,Y,NPARTS,varargin)
         W=abs(varargin{1});
     else
         W=ones(size(X));
+    end
+
+    if(nargin>4)
+        if((1<=varargin{2})&&(varargin{2}<=2))
+            LEVEL=round(varargin{2});
+        else
+            LEVEL=2;
+        end
+    else
+        LEVEL=2;
     end
 
     [X id]=sort(X);
