@@ -6,12 +6,12 @@ page_screen_output(0);
 page_output_immediately(1);
 OUTPUT='output';
 
-IMAGEPATH='/home/fernando/MapaDePerfil/povray/line-laser/output/8bit/main1.bmp';
+IMAGEPATH='/home/fernando/MapaDePerfil/povray/line-laser-ProjA-CamA/output/8bit/main1.bmp';
 IMG = imread(IMAGEPATH);
 IMG_BIN=IMG>0.5;
 
 
-IMAGEPATH='/home/fernando/MapaDePerfil/povray/line-laser/output/8bit/main0.bmp';
+IMAGEPATH='/home/fernando/MapaDePerfil/povray/line-laser-ProjA-CamA/output/8bit/main0.bmp';
 IMG = imread(IMAGEPATH);
 IMG_BIN_REF=IMG>0.5;
 

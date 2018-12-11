@@ -8,20 +8,18 @@ function [B C]=image1linefun(PARAMS,IMG_BIN,IMG_BIN_REF,CUMULUSON,varargin)
         error('Differents number of columns in the images');
     end
 
-    if(nargin>4)
-        OUTPUT=varargin{1};
-    endif
 
     H=size(IMG_BIN_REF,1);
     W=size(IMG_BIN_REF,2);
 
     R = LineDetector(IMG_BIN);
     R.set_reconstruction_cumulus_on(CUMULUSON);
-    R.set_reconstruction_level(1);
-    R.set_reconstruction_parts(28);
+    R.set_reconstruction_level(0);
+    R.set_reconstruction_parts(24);
     [XLIN YLIN]=R.calculates_curve();
 
     if(nargin>4)
+        OUTPUT=varargin{1};
         plot_data(OUTPUT,'line',IMG_BIN,XLIN,YLIN);
     end
 
@@ -33,6 +31,7 @@ function [B C]=image1linefun(PARAMS,IMG_BIN,IMG_BIN_REF,CUMULUSON,varargin)
     [XREF YREF]=R.calculates_curve();
 
     if(nargin>4)
+        OUTPUT=varargin{1};
         plot_data(OUTPUT,'ref',IMG_BIN_REF,XREF,YREF);
     end
 

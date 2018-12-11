@@ -17,6 +17,7 @@
     #declare VAR_F=1.8;
     #declare VAR_G=1.8;
 
+    ////////////////////////////////////////////////////////////////////////////
     // CAMERA POSITION
     #declare CAMARA_ALTURA=VAR_D*tan(VAR_Q);	// Camera altura.
     #declare CAMERA_DEEP=VAR_D;	// Que tao longue esta o CUBO: 2.0m
@@ -43,26 +44,30 @@
         tightness 0.0
     }
 
+
+    ////////////////////////////////////////////////////////////////////////////
+    #declare LASERDOTS_H=VAR_G;
+    #include "laserdots.pov"
+    object{    laserdots    translate<0,0,VAR_F-VAR_D> }
+
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 #declare CAJA_W=0.5;
 #declare CAJA_H=0.5;	
 #declare CAJA_DEEP=0.3;	
+#declare CAJA_POS=0.8;	
 #include "caja.pov"
-object{    caja    translate<-1.0,0,VAR_F-VAR_D>    }
+object{    caja    translate<-1.0,0,CAJA_POS>    }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 #declare CONO_H=0.5;	
-#declare CONO_R=0.5;	
+#declare CONO_R=0.5;
+#declare CONO_POS=0.8;		
 #include "cono.pov"
-object{    cono    translate<+1.0,0,VAR_F-VAR_D>    }
+object{    cono    translate<+1.0,0,CONO_POS>    }
 
-////////////////////////////////////////////////////////////////////////////////
-#declare LASERDOTS_H=VAR_G;
-#include "laserdots.pov"
-object{    laserdots    translate<0,0,VAR_F-VAR_D> }
 
 
 ////////////////////////////////////////////////////////////////////////////////
