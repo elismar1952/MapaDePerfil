@@ -1,4 +1,4 @@
-function [B C]=image1linefun(PARAMS,IMG_BIN,IMG_BIN_REF,CUMULUSON,varargin)
+function [B Y C]=image1linefun(PARAMS,IMG_BIN,IMG_BIN_REF,CUMULUSON,varargin)
     
     if(size(IMG_BIN,1)~=size(IMG_BIN_REF,1))
         error('Differents number of lines in the images');
@@ -40,7 +40,7 @@ function [B C]=image1linefun(PARAMS,IMG_BIN,IMG_BIN_REF,CUMULUSON,varargin)
     b0=XREF-0.5*W;
 
 
-    [B C]=Tfun(PARAMS,b0,c0,d0);
+    [B Y C]=Tfun(PARAMS,b0,c0,d0);
 
 endfunction
 

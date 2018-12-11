@@ -23,10 +23,14 @@ g=1.8;
 
 PARAMS=[h0;D;Q;f;g];
 
-[B C]=image1linefun(PARAMS,IMG_BIN,IMG_BIN_REF,false,OUTPUT);
+[B Y C]=image1linefun(PARAMS,IMG_BIN,IMG_BIN_REF,false,OUTPUT);
 
 mkdir(OUTPUT);
 figure
 plot(B,C,'-o');
 grid minor on
 print(gcf,fullfile(OUTPUT,filesep,'grafico-real.png'),'-dpng');
+
+figure
+plot3(B,Y,C);
+print(gcf,fullfile(OUTPUT,filesep,'grafico-real3d.png'),'-dpng');
