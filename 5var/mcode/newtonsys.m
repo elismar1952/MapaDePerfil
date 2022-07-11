@@ -18,7 +18,7 @@ function [XO FvO]=newtonsys(C,xo,tol,c0,d0,alfa)
       end
       Fv=Ffun(x,c0,d0);
     
-     E=mae(Fv-C);
+     E=mean(mean(abs(Fv-C)));
       
       %if (E>last_E)
       %  fprintf(stdout,'\nE:%f\r',E);
